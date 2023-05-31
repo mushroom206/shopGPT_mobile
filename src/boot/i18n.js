@@ -7,7 +7,6 @@ export const i18n = createI18n({
   globalInjection: true,
   messages: {
     english: {
-      "Log in by Gmail": "Log in by Gmail",
       "Log Out": "Log Out",
       "Privacy Policy": "Privacy Policy",
       "Terms of Service": "Terms of Service",
@@ -22,7 +21,6 @@ export const i18n = createI18n({
       // other translations...
     },
     chinese: {
-      "Log in by Gmail": "使用Gmail登入",
       "Log Out": "登出",
       "Privacy Policy": "隐私条例",
       "Terms of Service": "服务声明",

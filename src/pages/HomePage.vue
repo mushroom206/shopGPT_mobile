@@ -40,9 +40,12 @@
               <template #dropdown>
                 <el-dropdown-menu>
                   <el-dropdown-item>
-                    <el-button @click="login">{{
-                      $t("Log in by Gmail")
-                    }}</el-button>
+                    <el-image
+                      style="width: 160px; height: 40px"
+                      :src="require('@/assets/images/btn_google_signin.png')"
+                      :fit="contain"
+                      @click="login"
+                    />
                   </el-dropdown-item>
                   <el-dropdown-item>
                     <el-button @click="gLogout">{{ $t("Log Out") }}</el-button>
@@ -250,35 +253,68 @@ const getUserData = async (accessToken) => {
   }
 };
 
-const login = () => {
-  googleTokenLogin().then((response) => {
-    getUserData(response.access_token).then((data) => {
-      userPicture.value = data.picture;
-      // Save user data to local storage
-      const userData = {
-        ...response,
-        picture: data.picture,
-        email: data.email,
-      };
-      localStorage.setItem("userData", JSON.stringify(userData));
+// const login = () => {
+//   googleTokenLogin().then((response) => {
+//     getUserData(response.access_token).then((data) => {
+//       userPicture.value = data.picture;
+//       // Save user data to local storage
+//       const userData = {
+//         ...response,
+//         picture: data.picture,
+//         email: data.email,
+//       };
+//       localStorage.setItem("userData", JSON.stringify(userData));
 
-      // send email to backend
-      apiService
-        .saveEmail(data.email) // Use apiService to save the email here
-        .then((response) => console.log(response))
-        .catch((error) => console.error(error));
-    });
-  });
+//       // send email to backend
+//       apiService
+//         .saveEmail(data.email) // Use apiService to save the email here
+//         .then((response) => console.log(response))
+//         .catch((error) => console.error(error));
+//     });
+//   });
+// };
+
+const login = () => {
+  if (window.cordova && window.cordova.plugins.GooglePlus) {
+    window.cordova.plugins.GooglePlus.login(
+      {
+        webClientId:
+          "386372323157-tlihaenba57ub9rhde346s5o6ch6h5j4.apps.googleusercontent.com",
+        offline: true,
+      }, // your client id goes here
+      function (obj) {
+        userPicture.value = obj.imageUrl; // change this according to the response object
+        // Save user data to local storage
+        localStorage.setItem("userData", JSON.stringify(obj));
+        console.log(obj);
+      },
+      function (msg) {
+        console.error("error: " + msg);
+      }
+    );
+  }
 };
 
+// const gLogout = () => {
+//   // your logout logics
+//   googleLogout();
+//   // Clear user data from local storage
+//   localStorage.removeItem("userData");
+//   // Reset userPicture
+//   userPicture.value = null;
+//   console.log("logout");
+// };
+
 const gLogout = () => {
-  // your logout logics
-  googleLogout();
-  // Clear user data from local storage
-  localStorage.removeItem("userData");
-  // Reset userPicture
-  userPicture.value = null;
-  console.log("logout");
+  if (window.cordova && window.cordova.plugins.GooglePlus) {
+    window.cordova.plugins.GooglePlus.logout(function (msg) {
+      console.log(msg);
+      // Clear user data from local storage
+      localStorage.removeItem("userData");
+      // Reset userPicture
+      userPicture.value = null;
+    });
+  }
 };
 
 const changeLanguage = (language) => {
