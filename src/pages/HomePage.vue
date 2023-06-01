@@ -278,11 +278,14 @@ const getUserData = async (accessToken) => {
 // };
 
 const login = () => {
+  console.log("login");
   document.addEventListener(
     "deviceready",
     () => {
-      if (window && window.plugins.GooglePlus) {
-        window.plugins.GooglePlus.login(
+      console.log("device ready");
+      if (window.cordova && window.cordova.plugins.GooglePlus) {
+        console.log("google plus login");
+        window.cordova.plugins.GooglePlus.login(
           {
             webClientId:
               "386372323157-tlihaenba57ub9rhde346s5o6ch6h5j4.apps.googleusercontent.com",
@@ -318,8 +321,8 @@ const gLogout = () => {
   document.addEventListener(
     "deviceready",
     () => {
-      if (window && window.plugins.GooglePlus) {
-        window.plugins.GooglePlus.logout(function (msg) {
+      if (window.cordova && window.cordova.plugins.GooglePlus) {
+        window.cordova.plugins.GooglePlus.logout(function (msg) {
           console.log(msg);
           // Clear user data from local storage
           localStorage.removeItem("userData");
