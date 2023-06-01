@@ -288,7 +288,7 @@ const login = () => {
         window.plugins.googleplus.login(
           {
             webClientId:
-              "386372323157-tlihaenba57ub9rhde346s5o6ch6h5j4.apps.googleusercontent.com",
+              "386372323157-34tj0kthjhnbcgb9jl9msamk33fi27ad.apps.googleusercontent.com",
             offline: true,
           }, // your client id goes here
           function (obj) {
