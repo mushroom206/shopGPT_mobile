@@ -278,24 +278,30 @@ const getUserData = async (accessToken) => {
 // };
 
 const login = () => {
-  if (window.cordova && window.cordova.plugins.googleplus) {
-    window.cordova.plugins.googleplus.login(
-      {
-        webClientId:
-          "386372323157-tlihaenba57ub9rhde346s5o6ch6h5j4.apps.googleusercontent.com",
-        offline: true,
-      }, // your client id goes here
-      function (obj) {
-        userPicture.value = obj.imageUrl; // change this according to the response object
-        // Save user data to local storage
-        localStorage.setItem("userData", JSON.stringify(obj));
-        console.log(obj);
-      },
-      function (msg) {
-        console.error("error: " + msg);
+  document.addEventListener(
+    "deviceready",
+    () => {
+      if (window && window.plugins.GooglePlus) {
+        window.plugins.GooglePlus.login(
+          {
+            webClientId:
+              "386372323157-tlihaenba57ub9rhde346s5o6ch6h5j4.apps.googleusercontent.com",
+            offline: true,
+          }, // your client id goes here
+          function (obj) {
+            userPicture.value = obj.imageUrl; // change this according to the response object
+            // Save user data to local storage
+            localStorage.setItem("userData", JSON.stringify(obj));
+            console.log(obj);
+          },
+          function (msg) {
+            console.error("error: " + msg);
+          }
+        );
       }
-    );
-  }
+    },
+    false
+  );
 };
 
 // const gLogout = () => {
@@ -309,15 +315,21 @@ const login = () => {
 // };
 
 const gLogout = () => {
-  if (window.cordova && window.cordova.plugins.googleplus) {
-    window.cordova.plugins.googleplus.logout(function (msg) {
-      console.log(msg);
-      // Clear user data from local storage
-      localStorage.removeItem("userData");
-      // Reset userPicture
-      userPicture.value = null;
-    });
-  }
+  document.addEventListener(
+    "deviceready",
+    () => {
+      if (window && window.plugins.GooglePlus) {
+        window.plugins.GooglePlus.logout(function (msg) {
+          console.log(msg);
+          // Clear user data from local storage
+          localStorage.removeItem("userData");
+          // Reset userPicture
+          userPicture.value = null;
+        });
+      }
+    },
+    false
+  );
 };
 
 const changeLanguage = (language) => {
