@@ -14,7 +14,8 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "cordova-android": "^12.0.0",
-    "cordova-ios": "^6.3.0"
+    "cordova-ios": "^6.3.0",
+    "cordova-plugin-device": "^2.1.0"
   },
   "cordova": {
     "platforms": [
@@ -25,7 +26,8 @@
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "com.googleusercontent.apps.386372323157-kpsp8nmlq45ob5a3vmha100i1lum78vo",
         "WEB_APPLICATION_CLIENT_ID": "386372323157-tlihaenba57ub9rhde346s5o6ch6h5j4.apps.googleusercontent.com"
-      }
+      },
+      "cordova-plugin-device": {}
     }
   },
   "dependencies": {

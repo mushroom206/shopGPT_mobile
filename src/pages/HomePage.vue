@@ -278,8 +278,8 @@ const getUserData = async (accessToken) => {
 // };
 
 const login = () => {
-  if (window.cordova && window.cordova.plugins.GooglePlus) {
-    window.cordova.plugins.GooglePlus.login(
+  if (window.cordova && window.cordova.plugins.googleplus) {
+    window.cordova.plugins.googleplus.login(
       {
         webClientId:
           "386372323157-tlihaenba57ub9rhde346s5o6ch6h5j4.apps.googleusercontent.com",
@@ -309,8 +309,8 @@ const login = () => {
 // };
 
 const gLogout = () => {
-  if (window.cordova && window.cordova.plugins.GooglePlus) {
-    window.cordova.plugins.GooglePlus.logout(function (msg) {
+  if (window.cordova && window.cordova.plugins.googleplus) {
+    window.cordova.plugins.googleplus.logout(function (msg) {
       console.log(msg);
       // Clear user data from local storage
       localStorage.removeItem("userData");
